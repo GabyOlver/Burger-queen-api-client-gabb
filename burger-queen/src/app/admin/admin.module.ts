@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateWorkersComponent } from './create-workers/create-workers.component';
 import { ProductsAdminComponent } from './products-admin/products-admin.component';
 import { CreateProductsModalComponent } from './create-products-modal/create-products-modal.component';
+import { EditWorkerModalComponent } from './edit-worker-modal/edit-worker-modal.component';
+import { EditProductModalComponent } from './edit-product-modal/edit-product-modal.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { CreateProductsModalComponent } from './create-products-modal/create-pro
     WorkersComponent,
     CreateWorkersComponent,
     ProductsAdminComponent,
-    CreateProductsModalComponent
+    CreateProductsModalComponent,
+    EditWorkerModalComponent,
+    EditProductModalComponent
   ],
   imports: [
     CommonModule,

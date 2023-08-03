@@ -24,7 +24,6 @@ export class CreateWorkersComponent implements OnInit {
 
   addWorker(): void {
     this.addWorkerEvent.emit(this.newWorker);
-    // this.closeModal();
   }
 
   closeModal(): void {

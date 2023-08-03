@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 export class WorkersComponent implements OnInit {
   workers: Worker[] = [];
   showAddWorkerModal = false;
+  showEditWorkerModal = false;
+  workerToEdit?: Worker;
 
   constructor(
     private workersService: UsersServiceService,
@@ -56,6 +58,35 @@ export class WorkersComponent implements OnInit {
     (error) => {
       console.log('Error al agregar trabajador', error)
     }
+  )
+}
+
+openEditWorkerModal(worker: Worker): void {
+  this.showEditWorkerModal = true;
+  this.workerToEdit = worker
+}
+
+closeEditWorkerModal(): void {
+  this.showEditWorkerModal = false;
+}
+
+onEditWorker(editedWorker: Worker): void {
+  if (!editedWorker.name || !editedWorker.email || !editedWorker.role) {
+    console.log('Por favor, completa todos los campos del formulario.');
+    return;
+}
+this.workersService.editWorker(editedWorker).subscribe(
+  (updatedWorker) => {
+    const index = this.workers.findIndex((w)=> w.id === updatedWorker.id);
+    if(index !== -1) {
+      this.workers[index] = updatedWorker;
+    }
+    this.closeEditWorkerModal();
+    this.loadWorkers();
+  },
+  (error) => {
+    console.log('Error al editar', error)
+  }
   )
 }
 
