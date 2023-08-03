@@ -42,10 +42,4 @@ export class UsersServiceService {
 
   deleteWorker(){}
 
-
-  // editWorker1(editedWorker: Worker): Observable<Worker> {
-  //   const headers = this.getHeaders();
-  //   const url = `${this.url}/${editedWorker.id}`; // Assuming your backend supports PUT request for editing a specific worker
-  //   return this.http.put<Worker>(url, editedWorker, { headers });
-  // }
 }
