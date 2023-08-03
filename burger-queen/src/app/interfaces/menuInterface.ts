@@ -6,5 +6,21 @@ export interface MenuItem {
     price: number;
     type: string;
     quantity?: number;
-    currentTime: number;
+    currentTime?: number;
+}
+
+export interface Product {
+    id: number;
+    name: string;
+    image: string;
+    price: string;
+    type: string;
+}
+
+export interface CreateProduct {
+    id: number;
+    name: string;
+    image: string;
+    price: string;
+    type: string;
 }
