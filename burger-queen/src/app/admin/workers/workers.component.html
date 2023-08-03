@@ -13,7 +13,7 @@
         <p>- {{ worker.role }}</p>
   
         <div class="btns my-2">
-          <button class="worker px-2 mr-16 bg-custom-dab5e1">Editar</button>
+          <button class="worker px-2 mr-16 bg-custom-dab5e1" (click)="openEditWorkerModal(worker)">Editar</button>
           <button class="worker px-2 bg-custom-b3ebe4">Eliminar</button>
         </div>
       </div>
@@ -25,4 +25,13 @@
   (addWorkerEvent)="onAddWorker($event)"
   (closeModalEvent)="closeAddWorkerModal()"
   ></app-create-workers>
+
+<app-edit-worker-modal
+*ngIf="showEditWorkerModal"
+[worker]="workerToEdit"
+(editWorkerEvent)="onEditWorker($event)"
+(closeModalEvent)="closeEditWorkerModal()"
+></app-edit-worker-modal>
+
+<!-- [worker]="workerToEdit" -->
 </section>

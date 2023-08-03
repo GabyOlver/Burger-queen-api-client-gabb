@@ -9,7 +9,8 @@ import { LocalStorageService } from './local-storage.service';
 })
 export class UsersServiceService {
 
-  private url = 'http://localhost:8080/users';
+  private url:string = 'http://localhost:8080';
+  private userUrl:string = this.url + '/users'
 
   constructor(
     private http: HttpClient,
@@ -25,12 +26,26 @@ export class UsersServiceService {
 
   getWorkers(): Observable<Worker[]>{
     const headers = this.getHeaders();
-    return this.http.get<Worker[]>(this.url, {headers});
+    return this.http.get<Worker[]>(this.userUrl, {headers});
   }
 
   addWorker(newWorker: CreateWorker): Observable<CreateWorker> {
     const headers = this.getHeaders();
-    return this.http.post<CreateWorker>(this.url, newWorker, { headers });
+    return this.http.post<CreateWorker>(this.userUrl, newWorker, { headers });
   }
 
+  editWorker(editedWorker: Worker): Observable<Worker> {
+    const headers = this.getHeaders();
+    const url = `${this.userUrl}/${editedWorker.id}`;
+    return this.http.put<Worker>(url, editedWorker, {headers})
+  }
+
+  deleteWorker(){}
+
+
+  // editWorker1(editedWorker: Worker): Observable<Worker> {
+  //   const headers = this.getHeaders();
+  //   const url = `${this.url}/${editedWorker.id}`; // Assuming your backend supports PUT request for editing a specific worker
+  //   return this.http.put<Worker>(url, editedWorker, { headers });
+  // }
 }
