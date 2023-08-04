@@ -59,6 +59,18 @@ export class ProductsAdminComponent implements OnInit {
     )
   }
 
+  onDeleteProduct(product: Product) {
+    this.productsService.deleteProduct(product.id).subscribe(
+      (res) => {
+        this.products = this.products.filter((p) => p.id !== product.id);
+        console.log('Se elimio el producto', res, product);
+      },
+      (error) => {
+        console.log("Error", error)
+      }
+    )
+  }
+
   goToWorkers() {
     this.router.navigate(['admin/workers'])
   }

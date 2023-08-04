@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Worker, CreateWorker } from 'src/app/interfaces/workers-interface';
 import { UsersServiceService } from 'src/app/services/users-service.service';
 import { Router } from '@angular/router';
+import { EditWorkerModalComponent } from '../edit-worker-modal/edit-worker-modal.component';
 
 @Component({
   selector: 'app-workers',
@@ -62,31 +63,41 @@ export class WorkersComponent implements OnInit {
 }
 
 openEditWorkerModal(worker: Worker): void {
+  this.workerToEdit = { ...worker }; // Create a copy of the worker to avoid modifying the original data
   this.showEditWorkerModal = true;
-  this.workerToEdit = worker
 }
 
 closeEditWorkerModal(): void {
   this.showEditWorkerModal = false;
+  this.workerToEdit = undefined;
 }
 
-onEditWorker(editedWorker: Worker): void {
-  if (!editedWorker.name || !editedWorker.email || !editedWorker.role) {
-    console.log('Por favor, completa todos los campos del formulario.');
-    return;
-}
-this.workersService.editWorker(editedWorker).subscribe(
-  (updatedWorker) => {
-    const index = this.workers.findIndex((w)=> w.id === updatedWorker.id);
-    if(index !== -1) {
-      this.workers[index] = updatedWorker;
+onEditWorker(updatedWorker: Worker): void {
+  this.workersService.updateWorker(updatedWorker).subscribe(
+    () => {
+      const index = this.workers.findIndex((worker) => worker.id === updatedWorker.id);
+      if (index !== -1) {
+        this.workers[index] = { ...updatedWorker };
+      }
+
+      this.closeEditWorkerModal();
+      console.log('Trabajador actualizado:', updatedWorker);
+    },
+    (error) => {
+      console.log('Error al editar trabajador', error);
     }
-    this.closeEditWorkerModal();
-    this.loadWorkers();
-  },
-  (error) => {
-    console.log('Error al editar', error)
-  }
+  );
+}
+
+onDeleteWorker(worker: Worker): void {
+  this.workersService.deleteWorker(worker.id).subscribe(
+    (res) => {
+      this.workers = this.workers.filter((w) => w.id !== worker.id);
+      console.log("Se elimino", res, worker);
+    },
+    (error) => {
+      console.log("error al eliminar", error)
+    }
   )
 }
 

@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app.routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
+import { AuthInterceptorInterceptor } from './interceptors/auth-interceptor.interceptor';
 
 
 @NgModule({
@@ -25,7 +26,13 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     CommonModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

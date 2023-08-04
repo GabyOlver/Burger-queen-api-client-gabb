@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Worker } from 'src/app/interfaces/workers-interface';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { UsersServiceService } from 'src/app/services/users-service.service';
 
 @Component({
@@ -8,30 +9,29 @@ import { UsersServiceService } from 'src/app/services/users-service.service';
   styleUrls: ['./edit-worker-modal.component.css']
 })
 export class EditWorkerModalComponent implements OnInit {
-  @Input() worker?: Worker;
+  @Input() workerToEdit?: Worker;
   @Output() editWorkerEvent = new EventEmitter<Worker>()
   @Output() closeModalEvent = new EventEmitter<void>();
 
   editedWorker!: Worker;
 
-  constructor(private usersService: UsersServiceService) { }
+  constructor(
+    private usersService: UsersServiceService,
+    private authService: AuthServiceService) { }
 
   ngOnInit() {
-    if(this.worker) {
-      this.editedWorker = {...this.worker};
-    }
+    // if(this.worker) {
+    //   this.editedWorker = {...this.worker};
+    // }
   }
 
   editWorker(): void {
-    this.usersService.editWorker(this.editedWorker).subscribe(
-      (updatedWorker) => {
-        this.editWorkerEvent.emit(updatedWorker);
-        this.closeModal()
-      },
-      (error) => {
-        console.log('Error editing user', error);
-      }
-    )
+    if (!this.workerToEdit?.name || !this.workerToEdit?.email || !this.workerToEdit?.role) {
+      console.log('Por favor, completa todos los campos del formulario.');
+      return;
+    }
+    
+    this.editWorkerEvent.emit(this.workerToEdit);
   }
 
   closeModal(): void {

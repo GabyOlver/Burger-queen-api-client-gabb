@@ -10,6 +10,7 @@ import { LocalStorageService } from './local-storage.service';
 export class ProductsServiceService {
 
   private url:string = 'http://localhost:8080';
+  private productsUrl = this.url + '/products';
 
   constructor(private http: HttpClient, private storage: LocalStorageService) { }
 
@@ -22,30 +23,18 @@ export class ProductsServiceService {
   }
 
   getAllProducts():Observable<any> {
-    const productsUrl = this.url + '/products';
     const headers = this.getHeaders();
-    return this.http.get<MenuItem[]>(productsUrl, {headers})
+    return this.http.get<MenuItem[]>(this.productsUrl, {headers})
   }
 
   addProduct(newProduct: CreateProduct): Observable<CreateProduct> {
-    const productsUrl = this.url + '/products';
     const headers = this.getHeaders();
-    return this.http.post<CreateProduct>(productsUrl, newProduct, {headers})
+    return this.http.post<CreateProduct>(this.productsUrl, newProduct, {headers})
   }
 
-  
-  // getAllProducts():Observable<any>{
-  //   const productsUrl = this.url + '/products'
-  //   const headers = this.createAuthorizationHeaders();
-  //   return this.http.get<MenuItem[]>(productsUrl, {headers})
-  // }
-
-  // private createAuthorizationHeaders(): HttpHeaders {
-  //   const token = this.storage.getToken();
-  //   if(token) {
-  //     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  //   }
-  //   return new HttpHeaders();
-  // }
+  deleteProduct(productId: number): Observable<void> {
+    const url = `${this.productsUrl}/${productId}`;
+    return this.http.delete<void>(url)
+  }
 
 }

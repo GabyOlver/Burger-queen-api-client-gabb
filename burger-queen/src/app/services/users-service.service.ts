@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CreateWorker, Worker } from '../interfaces/workers-interface';
 import { LocalStorageService } from './local-storage.service';
+import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,30 +17,31 @@ export class UsersServiceService {
     private http: HttpClient,
     private storage: LocalStorageService) { }
 
-    private getHeaders(): HttpHeaders {
-      const token = this.storage.getToken();
-      return new HttpHeaders ({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    }
+    // private getHeaders(): HttpHeaders {
+    //   const token = this.storage.getToken();
+    //   console.log('Token', token)
+    //   return new HttpHeaders ({
+    //     'Content-Type': 'application/json',
+    //     Authorization: 'Bearer ' + token
+    //   })
+    // }
 
   getWorkers(): Observable<Worker[]>{
-    const headers = this.getHeaders();
-    return this.http.get<Worker[]>(this.userUrl, {headers});
+    return this.http.get<Worker[]>(this.userUrl);
   }
 
   addWorker(newWorker: CreateWorker): Observable<CreateWorker> {
-    const headers = this.getHeaders();
-    return this.http.post<CreateWorker>(this.userUrl, newWorker, { headers });
+    return this.http.post<CreateWorker>(this.userUrl, newWorker);
   }
 
-  editWorker(editedWorker: Worker): Observable<Worker> {
-    const headers = this.getHeaders();
-    const url = `${this.userUrl}/${editedWorker.id}`;
-    return this.http.put<Worker>(url, editedWorker, {headers})
+  updateWorker(updatedWorker: Worker): Observable<Worker> {
+    const url = `${this.userUrl}/${updatedWorker.id}`;
+    return this.http.put<Worker>(url, updatedWorker);
   }
 
-  deleteWorker(){}
+  deleteWorker(workerId: number): Observable<void> {
+    const url = `${this.userUrl}/${workerId}`;
+    return this.http.delete<void>(url)
+  }
 
 }

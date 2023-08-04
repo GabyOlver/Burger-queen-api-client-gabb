@@ -3,6 +3,8 @@ export interface Worker {
     name: string;
     email: string;
     role: string;
+    password?: string;
+
 }
 
 export interface CreateWorker {
@@ -10,5 +12,10 @@ export interface CreateWorker {
     name: string;
     email: string;
     role: string;
-    password: string;
+    password?: string;
 }
+
+export interface EditWorkerResponse {
+    worker: Worker;
+    token: string;
+  }
