@@ -11,6 +11,8 @@ import { ProductsServiceService } from 'src/app/services/products-service.servic
 export class ProductsAdminComponent implements OnInit {
   products: Product[] = [];
   showAddProductModal = false;
+  showEditProductModal = false;
+  productToEdit?: Product;
 
   constructor(
     private productsService :ProductsServiceService,
@@ -31,6 +33,12 @@ export class ProductsAdminComponent implements OnInit {
         console.log(error)
       }
     )
+  }
+
+  showMenu(type: string) {
+    this.productsService.getAllProducts().subscribe((data: Product[]) => {
+      this.products = data.filter(product => product.type === type);
+    })
   }
 
   openAddProductModal():void {
@@ -67,6 +75,33 @@ export class ProductsAdminComponent implements OnInit {
       },
       (error) => {
         console.log("Error", error)
+      }
+    )
+  }
+
+  openEditProductModal(product: Product): void {
+    this.productToEdit = { ...product };
+    this.showEditProductModal = true;
+  }
+
+  closeEditModal(): void {
+    this.showEditProductModal = false;
+    this.productToEdit = undefined
+  }
+
+  onEditProduct(updatedProduct: Product): void {
+    this.productsService.updateProduct(updatedProduct).subscribe(
+      (res) => {
+        const index = this.products.findIndex((p) => p.id === updatedProduct.id);
+        if (index !== -1) {
+          this.products[index] = res;
+        }
+        console.log('Se actualizo el producto', res);
+        this.closeEditModal();
+        this.loadProducts();
+      },
+      (error) => {
+        console.log('Error al actualizar producto', error)
       }
     )
   }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateProduct, MenuItem } from '../interfaces/menuInterface';
+import { CreateProduct, MenuItem, Product } from '../interfaces/menuInterface';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -30,6 +30,13 @@ export class ProductsServiceService {
   addProduct(newProduct: CreateProduct): Observable<CreateProduct> {
     const headers = this.getHeaders();
     return this.http.post<CreateProduct>(this.productsUrl, newProduct, {headers})
+  }
+
+  updateProduct(updatedProduct: Product): Observable<Product> {
+    const url = `${this.productsUrl}/${updatedProduct.id}`;
+    const headers = this.getHeaders();
+    return this.http.patch<Product>(url, updatedProduct, {headers})
+
   }
 
   deleteProduct(productId: number): Observable<void> {

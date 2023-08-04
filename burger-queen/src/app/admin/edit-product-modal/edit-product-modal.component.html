@@ -1,1 +1,27 @@
-<p>edit-product-modal works!</p>
+<div class="modal-overlay" *ngIf="productToEdit">
+    <div class="modal-container flex flex-col bg-slate-200 w-2/4">
+        <h2 class="font-extrabold text-4xl m-auto">Editar Producto</h2>
+        <form class="m-auto" (ngSubmit)="editProduct()">
+            <label class="mt-2 block" for="name">Producto:</label>
+            <input class="input" type="text" name="name" [(ngModel)]="productToEdit.name" required>
+
+            <label class="mt-2 block" for="price">Precio:</label>
+            <input class="input" type="text" name="price" [(ngModel)]="productToEdit.price" required>
+
+            <label class="mt-2 block" for="type">Tipo:</label>
+            <select class="input text 3xl h-11" type="text" name="type" [(ngModel)]="productToEdit.type" required>
+                <option value="Desayuno">Desayuno</option>
+                <option value="Almuerzo">Almuerzo</option>
+            </select>
+
+            <label class="mt-2 block" for="image">Imagen:</label>
+            <input class="input" type="text" name="image" [(ngModel)]="productToEdit.image" required>
+
+              <div class="btns flex mt-4 justify-between">
+            <button class="btn bg-custom-dab5e1 font-semibold" type="submit">Guardar</button>
+            <button class="btn bg-custom-b3ebe4 font-semibold" type="button" (click)="closeModal()">Cancelar</button>
+              </div>
+        </form>
+    </div>
+</div>
+

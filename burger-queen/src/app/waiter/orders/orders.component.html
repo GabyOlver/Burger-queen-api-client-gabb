@@ -30,7 +30,7 @@
 
       <div class="desyuno-container h-full flex flex-row mt-4">
         <div class="desayuno-items grid-container w-3/5 mr-5">
-          <figure class="desayuno-item p-1 bg-slate-200" *ngFor="let item of menuItems" (click)="addToOrderList(item)">
+          <figure class="desayuno-item pt-3 px-1 bg-slate-200" *ngFor="let item of menuItems" (click)="addToOrderList(item)">
             <img class="h-16 m-auto" src="{{ item.image }}" alt="{{ item.name }}" />
             <h3 class="text-xl font-bold text-center">{{ item.name }}  ${{ item.price }}</h3>
           </figure>
@@ -38,7 +38,7 @@
 
         <!-- PEDIDO DEL CLIENTE -->
 
-        <div class="order-items flex justify-end bg-slate-100 w-5/12 h-full ml-auto p-3 ">
+        <div class="order-items flex justify-end bg-slate-100 w-1/2 h-full ml-auto p-3 ">
           <section class="flex flex-col w-full">
 
             <div class="mesa-cliente text-black flex flex-row">
@@ -53,7 +53,7 @@
             </div>
 
             <div class="pedido flex flex-col">
-              <table class="mt-3">
+              <table class="my-3">
                 <thead>
                   <tr class="text-xl text-black font-semibold">
                     <th>QTY</th>
@@ -71,8 +71,8 @@
                       <img class="h-5 mr-3" src="../../../assets/menos1.png" alt="delete" (click)="deleteProduct(orderItem)">
                       <img class="h-5 mr-2" src="../../../assets/mas.png" alt="add" (click)="addProduct(orderItem)">
                     </td>
-                      <td class="text-xl my-2">{{ orderItem.name }}</td>
-                      <td class="text-xl my-2">
+                      <td class="text-2xl font-semibold mt-4">{{ orderItem.name }}</td>
+                      <td class="text-2xl font-semibold mt-4">
                         <ng-container *ngIf="orderItem.price !== undefined && orderItem.quantity !== undefined">
                           ${{ orderItem.price * orderItem.quantity }}
                         </ng-container>
@@ -82,7 +82,7 @@
                 </tbody>
               </table>
 
-              <div class="text-black total mt-3 mb-2 text-2xl font-semibold">
+              <div class="text-black total mt-3 mb-4 text-2xl font-semibold">
                 Total: ${{ calcularTotal() }}
               </div>
             </div>
