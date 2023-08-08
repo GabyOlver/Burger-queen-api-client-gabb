@@ -7,7 +7,7 @@
 
   <div class="workers flex mt-4 mb-11 mx-11 pr-1 overflow-auto">
     <div class="grid grid-cols-3 gap-4">
-      <div class="workers-container px-8 font-semibold bg-slate-200 flex flex-col justify-between" *ngFor="let worker of workers">
+      <div class="workers-container px-8 py-2 font-semibold bg-slate-200 flex flex-col justify-between" *ngFor="let worker of workers">
         <p class="text-3xl">{{ worker.name }}</p>
         <p>- {{ worker.email }}</p>
         <p>- {{ worker.role }}</p>
