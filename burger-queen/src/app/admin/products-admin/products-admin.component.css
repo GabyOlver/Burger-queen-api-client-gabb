@@ -1,3 +1,7 @@
+.custom-swal-container {
+    z-index: 10000; /* Valor de z-index más alto */
+}
+
 .products {
     color: #000;
 }

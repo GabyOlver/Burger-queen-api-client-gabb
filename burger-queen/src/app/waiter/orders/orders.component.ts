@@ -92,7 +92,6 @@ deleteProduct(item: MenuItem) {
   
 
 cancelarOrden(){
-console.log('hiciste click en cancelar')
 Swal.fire({
   title: 'Seguro que deseas cancelar esta orden?',
   icon: 'warning',

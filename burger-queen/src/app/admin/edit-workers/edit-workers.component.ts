@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersServiceService } from 'src/app/services/users-service.service';
 import { Worker } from 'src/app/interfaces/workers-interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-workers',
@@ -50,17 +51,38 @@ export class EditWorkersComponent {
   }
 
   editWorker() {
-    this.userService.editWorker(this.UserInfo.id, this.workerForm.value).subscribe(
-      (res) => {
-        this.UserInfo = res;
-        this.workerEdited.emit(this.UserInfo);
-        console.log(res)
+    Swal.fire({
+      title: '¿Guardar todos los cambios?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      customClass: {
+        container: 'custom-swal-container', // Define una clase CSS personalizada
+    },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.editWorker(this.UserInfo.id, this.workerForm.value).subscribe(
+          (res) => {
+            this.UserInfo = res;
+            this.workerEdited.emit(this.UserInfo);
+            console.log(res);
+            Swal.fire(
+              'Listo!',
+              'Se guardaron correctamente los cambios.',
+              'success'
+            )
+          },
+          (error) => {
+            console.log('Error', error);
+            this.ngOnInit();
+            Swal.fire('Error', 'No se guardaron correctamente los cambios.', error);
+          }
+        )
       }
-    ),
-    (error: Error) => {
-      console.log('Error', error);
-      this.ngOnInit();
-    }
+    })
   }
 
   closeModal() {

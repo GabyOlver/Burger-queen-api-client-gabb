@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Worker, CreateWorker } from 'src/app/interfaces/workers-interface';
 import { UsersServiceService } from 'src/app/services/users-service.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-workers',
@@ -45,22 +46,44 @@ export class WorkersComponent implements OnInit {
   }
 
   onAddWorker(newWorker: CreateWorker): void {
-    if (!newWorker.name || !newWorker.email || !newWorker.role) {
-      console.log('Por favor, completa todos los campos del formulario.');
-      return;
-  }
-  this.workersService.addWorker(newWorker).subscribe(
-    (createdWorker) => {
-      this.workers.push(createdWorker);
-      this.closeAddWorkerModal();
-      this.loadWorkers();
-      console.log('Se agrego trabajador', createdWorker)
+    Swal.fire({
+      title: '¿Guardar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      customClass: {
+        container: 'custom-swal-container', // Define una clase CSS personalizada
     },
-    (error) => {
-      console.log('Error al agregar trabajador', error)
+  }).then((result) => {
+    if (result.isConfirmed) {
+      if (!newWorker.name || !newWorker.email || !newWorker.role) {
+        console.log('Por favor, completa todos los campos del formulario.');
+        Swal.fire('Error', 'Debes completar todos los campos para continuar.');
+        return;
     }
-  )
-}
+    this.workersService.addWorker(newWorker).subscribe(
+      (createdWorker) => {
+        this.workers.push(createdWorker);
+        this.closeAddWorkerModal();
+        this.loadWorkers();
+        console.log('Se agrego trabajador', createdWorker)
+        Swal.fire(
+          'Listo!',
+          'Se agregó correctamente el nuevo empleado.',
+          'success'
+        )
+      },
+      (error) => {
+        console.log('Error al agregar trabajador', error)
+        Swal.fire('Error', 'Error al agregar trabajador', error);
+      }
+    )
+    }
+  })
+  }
 
 openEditWorkerModal(worker: Worker): void {
   this.showEditWorkerModal = true;
@@ -81,15 +104,33 @@ onEditWorker(updatedWorker: Worker): void {
 }
 
 onDeleteWorker(worker: Worker): void {
-  this.workersService.deleteWorker(worker.id).subscribe(
-    (res) => {
-      this.workers = this.workers.filter((w) => w.id !== worker.id);
-      console.log("Se elimino", res, worker);
-    },
-    (error) => {
-      console.log("error al eliminar", error)
+  Swal.fire({
+    title: '¿Seguro que deseas eliminar los datos de este empleado?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si',
+    cancelButtonText: 'No',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.workersService.deleteWorker(worker.id).subscribe(
+        (res) => {
+          this.workers = this.workers.filter((w) => w.id !== worker.id);
+          console.log("Se elimino", res, worker);
+          Swal.fire(
+            'Listo!',
+            'Se eliminó correctamente la información del empleado.',
+            'success'
+          )
+        },
+        (error) => {
+          console.log("error al eliminar", error)
+          Swal.fire('Error', 'No se eliminó la información', error);
+        }
+      )
     }
-  )
+  })
 }
 
 goToProducts() {

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -42,6 +43,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   role = this.storage.getRoleUser();
 
   logout() {
-    this.authService.logOut();
+    Swal.fire({
+      title: '¿Seguro que quieres cerrar sesión?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.authService.logOut();
+      }
+    })
   }
 }
