@@ -1,0 +1,27 @@
+<div class="modal-overlay">
+    <div class="modal-container flex flex-col bg-slate-200 w-2/4">
+        <form class="m-auto" [formGroup]="workerForm" (ngSubmit)="editWorker()">
+          <h2 class="font-extrabold text-4xl m-auto">Editar Trabajador</h2>
+        <label class="mt-2 block" for="name">Nombre:</label>
+        <input class="input name" type="text" formControlName="name">
+  
+        <label class="mt-2 block" for="email">Email:</label>
+        <input class="input email" type="text" formControlName="email">
+  
+        <label class="mt-2 block" for="password">Password:</label>
+        <input class="input password" type="text" formControlName="password" [disabled]="true">
+  
+        <label class="mt-2 block" for="role">Role:</label>
+        <select class="input text-2xl h-11" name="WorkerRole" formControlName="role">
+          <option value="chef">Chef</option>
+          <option value="admin">Admin</option>
+          <option value="waiter">Waiter</option>
+        </select>
+  
+        <div class="btns flex mt-4 justify-between">
+          <button class="btn bg-custom-dab5e1 font-semibold" type="submit">Guardar</button>
+          <button class="btn bg-custom-b3ebe4 font-semibold" type="button" (click)="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>

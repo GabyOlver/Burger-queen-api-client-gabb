@@ -12,30 +12,31 @@ export class ProductsServiceService {
   private url:string = 'http://localhost:8080';
   private productsUrl = this.url + '/products';
 
-  constructor(private http: HttpClient, private storage: LocalStorageService) { }
+  constructor(private http: HttpClient,
+    private storage: LocalStorageService) { }
 
-  private getHeaders() {
-    const token = this.storage.getToken();
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token
-    })
-  }
+  // private getHeaders() {
+  //   const token = this.storage.getToken();
+  //   return new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     Authorization: 'Bearer ' + token
+  //   })
+  // }
 
   getAllProducts():Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.get<MenuItem[]>(this.productsUrl, {headers})
+    // const headers = this.getHeaders();
+    return this.http.get<MenuItem[]>(this.productsUrl)
   }
 
   addProduct(newProduct: CreateProduct): Observable<CreateProduct> {
-    const headers = this.getHeaders();
-    return this.http.post<CreateProduct>(this.productsUrl, newProduct, {headers})
+    // const headers = this.getHeaders();
+    return this.http.post<CreateProduct>(this.productsUrl, newProduct)
   }
 
   updateProduct(updatedProduct: Product): Observable<Product> {
     const url = `${this.productsUrl}/${updatedProduct.id}`;
-    const headers = this.getHeaders();
-    return this.http.patch<Product>(url, updatedProduct, {headers})
+    // const headers = this.getHeaders();
+    return this.http.patch<Product>(url, updatedProduct)
 
   }
 
@@ -43,5 +44,4 @@ export class ProductsServiceService {
     const url = `${this.productsUrl}/${productId}`;
     return this.http.delete<void>(url)
   }
-
 }

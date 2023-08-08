@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Worker, CreateWorker } from 'src/app/interfaces/workers-interface';
 import { UsersServiceService } from 'src/app/services/users-service.service';
 import { Router } from '@angular/router';
-import { EditWorkerModalComponent } from '../edit-worker-modal/edit-worker-modal.component';
 
 @Component({
   selector: 'app-workers',
@@ -11,9 +10,9 @@ import { EditWorkerModalComponent } from '../edit-worker-modal/edit-worker-modal
 })
 export class WorkersComponent implements OnInit {
   workers: Worker[] = [];
-  showAddWorkerModal = false;
-  showEditWorkerModal = false;
-  workerToEdit?: Worker;
+  showAddWorkerModal: boolean = false;
+  showEditWorkerModal: boolean = false;
+  workerId!: number;
 
   constructor(
     private workersService: UsersServiceService,
@@ -40,6 +39,7 @@ export class WorkersComponent implements OnInit {
     console.log('modal')
   }
 
+
   closeAddWorkerModal(): void {
     this.showAddWorkerModal = false;
   }
@@ -63,30 +63,21 @@ export class WorkersComponent implements OnInit {
 }
 
 openEditWorkerModal(worker: Worker): void {
-  this.workerToEdit = { ...worker }; // Create a copy of the worker to avoid modifying the original data
   this.showEditWorkerModal = true;
+  this.workerId = worker.id // Create a copy of the worker to avoid modifying the original data
 }
+
 
 closeEditWorkerModal(): void {
   this.showEditWorkerModal = false;
-  this.workerToEdit = undefined;
 }
 
 onEditWorker(updatedWorker: Worker): void {
-  this.workersService.updateWorker(updatedWorker).subscribe(
-    () => {
-      const index = this.workers.findIndex((worker) => worker.id === updatedWorker.id);
-      if (index !== -1) {
-        this.workers[index] = { ...updatedWorker };
-      }
-
-      this.closeEditWorkerModal();
-      console.log('Trabajador actualizado:', updatedWorker);
-    },
-    (error) => {
-      console.log('Error al editar trabajador', error);
-    }
-  );
+  const index = this.workers.findIndex((w) => w.id === updatedWorker.id);
+  if (index !== -1) {
+    this.workers[index] = updatedWorker
+  }
+  this.closeEditWorkerModal();
 }
 
 onDeleteWorker(worker: Worker): void {

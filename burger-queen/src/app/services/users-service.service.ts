@@ -30,6 +30,10 @@ export class UsersServiceService {
     return this.http.get<Worker[]>(this.userUrl);
   }
 
+  getWorker(workerId: number): Observable<any>{
+    return this.http.get(`${this.userUrl}/${workerId}`)
+  }
+
   addWorker(newWorker: CreateWorker): Observable<CreateWorker> {
     return this.http.post<CreateWorker>(this.userUrl, newWorker);
   }
@@ -37,6 +41,10 @@ export class UsersServiceService {
   updateWorker(updatedWorker: Worker): Observable<Worker> {
     const url = `${this.userUrl}/${updatedWorker.id}`;
     return this.http.put<Worker>(url, updatedWorker);
+  }
+
+  editWorker(workerId: number, body:CreateWorker){
+    return this.http.patch<Worker>(`${this.userUrl}/${workerId}`, body)
   }
 
   deleteWorker(workerId: number): Observable<void> {

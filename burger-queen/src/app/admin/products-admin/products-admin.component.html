@@ -1,5 +1,5 @@
-<section>
-    <app-header></app-header>
+<section class="h-screen flex flex-col">
+    <app-header class="sticky top-0 z-10"></app-header>
 
     <div class="inicio flex">
         <button class="btn bg-custom-dab5e1 h-16 w-auto font-bold mx-11 px-3 mt-2" (click)="openAddProductModal()">Agregar Productos</button>
@@ -9,16 +9,16 @@
         <button class="btn bg-custom-b3ebe4 h-16 w-auto font-bold ml-auto px-3 mt-2 mr-11" (click)="goToWorkers()">Trabajadores</button>
     </div>
 
-    <div class="products flex my-2 mx-11 overflow-auto">
+    <div class="products flex mt-4 mb-11 mx-11 pr-1 overflow-auto">
         <div class="grid grid-cols-3 gap-4">
-            <div class="products-container px-9 pt-3 font-semibold bg-slate-200 flex flex-col justify-between"
+            <div class="products-container px-2 pt-3 font-semibold bg-slate-200 flex flex-col justify-between"
                 *ngFor="let product of products">
                 <img class="h-20 m-auto" src="{{ product.image }}" alt="{{ product.name }}">
                 <h3 class="text-2xl font-bold text-center">{{ product.name }}</h3>
                 <p class="text-xl font-bold text-center"> ${{ product.price }}</p>
                 <p class="text-xl font-semibold text-center"> {{ product.type }}</p>
 
-                <div class="btns m-auto">
+                <div class="btns m-auto px-4 mx-1">
                     <button class="product my-2 px-2 mr-10 bg-custom-dab5e1" (click)="openEditProductModal(product)">Editar</button>
                     <button class="product my-2 px-2 bg-custom-b3ebe4" (click)="onDeleteProduct(product)">Eliminar</button>
                 </div>
