@@ -85,20 +85,6 @@ export class EditWorkersComponent {
     })
   }
 
-  // editWorker() {
-  //   this.userService.editWorker(this.UserInfo.id, this.workerForm.value).subscribe(
-  //     (res) => {
-  //       this.UserInfo = res;
-  //       this.workerEdited.emit(this.UserInfo);
-  //       console.log(res)
-  //     }
-  //   ),
-  //   (error: Error) => {
-  //     console.log('Error', error);
-  //     this.ngOnInit();
-  //   }
-  // }
-
   closeModal() {
     this.hideEdit.emit(false)
   }

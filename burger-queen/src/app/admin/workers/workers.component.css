@@ -1,4 +1,8 @@
-  .btn {
+.custom-swal-container {
+  z-index: 10000; /* Valor de z-index más alto */
+}
+
+ .btn {
     font-size: 30px;
       font-family: 'Single Day', cursive;
       color: #000;

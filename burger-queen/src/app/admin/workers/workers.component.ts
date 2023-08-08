@@ -46,23 +46,44 @@ export class WorkersComponent implements OnInit {
   }
 
   onAddWorker(newWorker: CreateWorker): void {
-    if (!newWorker.name || !newWorker.email || !newWorker.role) {
-      console.log('Por favor, completa todos los campos del formulario.');
-      Swal.fire('Error', 'Debes completar todos los campos.');
-      return;
-  }
-  this.workersService.addWorker(newWorker).subscribe(
-    (createdWorker) => {
-      this.workers.push(createdWorker);
-      this.closeAddWorkerModal();
-      this.loadWorkers();
-      console.log('Se agrego trabajador', createdWorker)
+    Swal.fire({
+      title: '¿Guardar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      customClass: {
+        container: 'custom-swal-container', // Define una clase CSS personalizada
     },
-    (error) => {
-      console.log('Error al agregar trabajador', error)
+  }).then((result) => {
+    if (result.isConfirmed) {
+      if (!newWorker.name || !newWorker.email || !newWorker.role) {
+        console.log('Por favor, completa todos los campos del formulario.');
+        Swal.fire('Error', 'Debes completar todos los campos para continuar.');
+        return;
     }
-  )
-}
+    this.workersService.addWorker(newWorker).subscribe(
+      (createdWorker) => {
+        this.workers.push(createdWorker);
+        this.closeAddWorkerModal();
+        this.loadWorkers();
+        console.log('Se agrego trabajador', createdWorker)
+        Swal.fire(
+          'Listo!',
+          'Se agregó correctamente el nuevo empleado.',
+          'success'
+        )
+      },
+      (error) => {
+        console.log('Error al agregar trabajador', error)
+        Swal.fire('Error', 'Error al agregar trabajador', error);
+      }
+    )
+    }
+  })
+  }
 
 openEditWorkerModal(worker: Worker): void {
   this.showEditWorkerModal = true;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateProduct, Product } from 'src/app/interfaces/menuInterface';
 import { ProductsServiceService } from 'src/app/services/products-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products-admin',
@@ -50,33 +51,73 @@ export class ProductsAdminComponent implements OnInit {
   }
 
   onAddProduct(newProduct: CreateProduct): void {
-    if(!newProduct.name || !newProduct.price || !newProduct.type || !newProduct.image) {
-      console.log('Por favor ingresa todos lo campos del formulario')
-      return;
-    }
-    this.productsService.addProduct(newProduct).subscribe(
-      (createProduct) => {
-        this.products.push(createProduct);
-        this.closeAddProductModal();
-        this.loadProducts();
-        console.log('Se agrego el producto', createProduct);
-      },
-      (error) => {
-        console.log('error al agregar producto', error)
+    Swal.fire({
+      title: '¿Guardar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      customClass: {
+        container: 'custom-swal-container',
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      if(!newProduct.name || !newProduct.price || !newProduct.type || !newProduct.image) {
+        console.log('Por favor ingresa todos lo campos del formulario')
+        Swal.fire('Error', 'Debes completar todos los campos para continuar.');
+        return;
       }
-    )
+      this.productsService.addProduct(newProduct).subscribe(
+        (createProduct) => {
+          this.products.push(createProduct);
+          this.closeAddProductModal();
+          this.loadProducts();
+          console.log('Se agrego el producto', createProduct);
+          Swal.fire(
+            'Listo!',
+            'Se agregó correctamente el nuevo producto.',
+            'success'
+          )
+        },
+        (error) => {
+          console.log('error al agregar producto', error);
+          Swal.fire('Error', 'Error al agregar producto', error);
+        }
+      )
+    }
+  })
   }
 
   onDeleteProduct(product: Product) {
-    this.productsService.deleteProduct(product.id).subscribe(
-      (res) => {
-        this.products = this.products.filter((p) => p.id !== product.id);
-        console.log('Se elimio el producto', res, product);
-      },
-      (error) => {
-        console.log("Error", error)
+    Swal.fire({
+      title: '¿Seguro que deseas eliminar este producto?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.productsService.deleteProduct(product.id).subscribe(
+          (res) => {
+            this.products = this.products.filter((p) => p.id !== product.id);
+            console.log('Se elimio el producto', res, product);
+            Swal.fire(
+              'Listo!',
+              'Se eliminó correctamente el producto.',
+              'success'
+            )
+          },
+          (error) => {
+            console.log("Error", error);
+          Swal.fire('Error', 'No se eliminó el producto', error);
+          }
+        )
       }
-    )
+    })
   }
 
   openEditProductModal(product: Product): void {
@@ -101,7 +142,8 @@ export class ProductsAdminComponent implements OnInit {
         this.loadProducts();
       },
       (error) => {
-        console.log('Error al actualizar producto', error)
+        console.log('Error al actualizar producto', error);
+        Swal.fire('Error', 'No se guardaron correctamente los cambios.', error);
       }
     )
   }
