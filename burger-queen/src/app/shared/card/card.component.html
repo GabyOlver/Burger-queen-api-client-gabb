@@ -2,15 +2,19 @@
     <div class="card p-2 bg-slate-200" >
 
       <div class="flex flex-row mt-1 ml-3">
-        <div class="text-lg font-semibold mr-8">
+        <div class="text-lg font-semibold mr-8" *ngIf="userRole === 'waiter'">
           <strong class="text-2xl font-bold">Id:</strong> {{ order.id }}
         </div>
 
-        <div class="text-xl font-semibold mr-8">
+        <div class="text-3xl font-semibold mr-8" *ngIf="userRole === 'chef'">
+          <strong class="text-3xl font-bold">Id:</strong> {{ order.id }}
+        </div>
+
+        <div class="text-xl font-semibold mr-8" *ngIf="userRole === 'waiter'">
           <strong class="text-2xl font-bold">Cliente:</strong> {{ order.client }}
         </div>
 
-        <div class="text-xl font-semibold">
+        <div class="text-xl font-semibold" *ngIf="userRole === 'waiter'">
           <strong class="text-2xl font-bold">Mesa:</strong> {{ order.mesa }}
         </div>
       </div>
@@ -24,12 +28,12 @@
         </ul>
       </div>
 
-      <div class="text-2xl font-bold mt-7 ml-3">
+      <div class="text-2xl font-bold mt-7 ml-3" *ngIf="userRole === 'waiter'">
         <strong class="text-2xl font-bold">Total:</strong> {{ calcularTotal(order.products) |
         currency:'USD':'symbol':'1.2-2' }}
       </div>
 
-      <div class="text-2xl font-semibold mt-3 ml-3">
+      <div class="text-2xl font-semibold mt-5 -mb-8 ml-3">
         <strong class="text-2xl font-bold text-rose-500" *ngIf="order.status === 'pending'">En fila de preparación</strong>
       </div>
 
@@ -41,19 +45,19 @@
         <strong class="text-2xl font-bold text-amber-600" *ngIf="order.status === 'delivered'">Pedido entregado</strong>
       </div>
 
-      <div class="text-2xl font-semibold mt-2 ml-3">
+      <div class="text-2xl font-semibold mt-2 ml-3" *ngIf="userRole === 'waiter'">
         <strong></strong> {{ order.dateEntry }}
       </div>
 
-      <div class="text-2xl font-semibold mt-2 ml-3">
-        <strong *ngIf="order.status === 'ready'">Tiempo de preparacion:</strong> {{ formatearTiempo(tiempoTranscurrido) }}
+      <div class="text-2xl font-semibold mt-2 mb-3 ml-3">
+        <strong>Tiempo de preparacion:</strong> {{ formatearTiempo(tiempoTranscurrido) }}
       </div>
 
-      <button class="entregado-btn text-black flex justify-end bg-custom-b3ebe4 px-3 py-3 mt-3 mr-3 ml-auto"  *ngIf="order.status === 'pending' "
+      <button class="entregado-btn text-black flex justify-end bg-custom-b3ebe4 px-3 py-3 mt-3 mr-3 ml-auto"  *ngIf="order.status === 'pending' && userRole === 'chef'"
         (click)="markOrderReady(order.id)" (click)="stopTimer()">Pedido Listo</button>
         <!-- *ngIf="userRole === 'chef' " -->
         
-        <button class="entregado-btn text-black flex justify-end bg-custom-b3ebe4 px-3 py-3 mt-3 mr-3 ml-auto"  *ngIf="order.status === 'ready' "
+        <button class="entregado-btn text-black flex justify-end bg-custom-b3ebe4 px-3 py-3 mt-3 mr-3 ml-auto"  *ngIf="order.status === 'ready' && userRole === 'waiter'"
         (click)="markOrderDelivered(order.id)">Entregar Orden</button>
         <!-- *ngIf="userRole === 'waiter'" -->
 

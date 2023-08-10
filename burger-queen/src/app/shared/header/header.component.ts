@@ -20,6 +20,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private storage: LocalStorageService,
     private authService: AuthServiceService,
     private date: DatePipe) { }
+    
+    email = this.storage.getEmail();
+    role = this.storage.getRoleUser();
+    name = this.storage.getName();
 
     ngOnInit(): void {
       this.horaFecha();
@@ -38,9 +42,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.fecha = this.date.transform(new Date(), 'dd-MM-yyyy');
       this.hora = this.date.transform(new Date(), 'HH:mm:ss'); 
     }
-
-  email = this.storage.getEmail();
-  role = this.storage.getRoleUser();
 
   logout() {
     Swal.fire({

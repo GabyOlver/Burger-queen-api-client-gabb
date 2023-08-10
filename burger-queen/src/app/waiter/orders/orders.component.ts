@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { Output, EventEmitter, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ProductsServiceService } from 'src/app/services/products-service.service';
 import { MenuItem } from 'src/app/interfaces/menuInterface';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { OrdersServiceService } from 'src/app/services/orders-service.service';
 import { Order } from 'src/app/interfaces/orderInterface';
 import { Router } from '@angular/router';
@@ -20,8 +18,7 @@ import Swal from 'sweetalert2';
 
 export class OrdersComponent {
 
-  // @Output() startTimer: EventEmitter<number> = new EventEmitter<number>();
-
+  selectedMenu: string = '';
   menuItems: MenuItem[] = [];
   orderItems: MenuItem[] = [];
   clientName: string = '';
@@ -43,10 +40,10 @@ showMenu(type: string) {
   })
 }
 
-addToOrderList(item: MenuItem){
+addProduct(item: MenuItem) {
   const existingItem = this.orderItems.find(orderItem => orderItem.name === item.name);
-  if (existingItem) {
-    if(existingItem.quantity){
+  if(existingItem) {
+    if(existingItem.quantity) {
       existingItem.quantity++;
     } else {
       existingItem.quantity=1;
@@ -71,20 +68,6 @@ deleteProduct(item: MenuItem) {
   this.hasProduct = this.orderItems.length > 0;
   }
   
-  addProduct(item: MenuItem) {
-    console.log('uno mas')
-    const existingItem = this.orderItems.find(orderItem => orderItem.name === item.name);
-    if(existingItem) {
-      if(existingItem.quantity) {
-        existingItem.quantity++;
-      } else {
-        existingItem.quantity=1;
-      }
-    } else {
-      this.orderItems.push({...item, quantity: 1 });
-    }
-    this.hasProduct = this.orderItems.length > 0;
-  }
 
   calcularTotal() {
     return this.totalCalculator.calcularTotal(this.orderItems);

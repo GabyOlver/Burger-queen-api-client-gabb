@@ -4,6 +4,7 @@ import { Order } from 'src/app/interfaces/orderInterface';
 import { OrdersFnService } from 'src/app/services/orders-fn.service';
 import { OrdersServiceService } from 'src/app/services/orders-service.service';
 import { MenuItem } from 'src/app/interfaces/menuInterface';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-card',
@@ -23,11 +24,13 @@ export class CardComponent implements OnInit, OnDestroy {
 
   constructor(
     private totalCalculator: OrdersFnService,
-    public ordersService: OrdersServiceService) { }
+    public ordersService: OrdersServiceService,
+    private storageService: LocalStorageService) { }
 
   private timer: any;
   public tiempoTranscurrido: number = 0;
-
+  userRole = this.storageService.getRoleUser();
+  userName = this.storageService.getName();
 
   ngOnInit(): void {
     // debugger;
@@ -66,19 +69,6 @@ export class CardComponent implements OnInit, OnDestroy {
     const dateEntryInSeconds = Math.floor(new Date(this.order.dateEntry).getTime() / 1000);
     return currentTimeInSeconds - dateEntryInSeconds;
   }
-
-  // calculateTimeDifference(): { dias: number, horas: number, minutos: number, segundos: number } {
-  //   const currentTimeInSeconds = Math.floor(Date.now() / 1000);
-  //   const dateEntryInSeconds = Math.floor(new Date(this.order.dateEntry).getTime() / 1000);
-  //   const timeDifference = currentTimeInSeconds - dateEntryInSeconds;
-  
-  //   const dias = Math.floor(timeDifference / 86400);
-  //   const horas = Math.floor((timeDifference % 86400) / 3600);
-  //   const minutos = Math.floor((timeDifference % 3600) / 60);
-  //   const segundos = timeDifference % 60;
-  
-  //   return { dias, horas, minutos, segundos };
-  // }
 
   formatearTiempo(tiempo: number): string {
     const dias = Math.floor(tiempo / 86400);

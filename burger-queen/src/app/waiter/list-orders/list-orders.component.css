@@ -11,7 +11,7 @@ body {
     max-height: calc(100vh - 220px);
   }
 
-  /* .card-container {
+  .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     grid-gap: 28px;
@@ -19,12 +19,12 @@ body {
     padding-bottom: 1px;
   } */
   
-  /* .card {
+  .card {
     width: 500px;
     height: auto;
     scroll-snap-align: start;
     border: 4px solid #000000;
-  } */
+  } 
 
   .btn, .entregado-btn {
     font-size: 40px;

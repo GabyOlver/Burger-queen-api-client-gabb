@@ -18,15 +18,13 @@ export class AuthServiceService {
     return this.http.post(loginURL, body)
   }
 
-  updateTokenInLocalStorage(newToken: string) {
-    localStorage.setItem('token',newToken)
-  }
-
   logOut(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user-id');
     localStorage.removeItem('user-email');
     localStorage.removeItem('user-rol');
+    localStorage.removeItem('user-name');
+
     this.router.navigate(['/login']);
   }
 }
