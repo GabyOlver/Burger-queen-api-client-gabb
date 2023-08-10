@@ -1,26 +1,20 @@
+<app-header></app-header>
+<section class="px-11 py-4">
 
-  <app-header></app-header>
-  <section class="px-11 py-4">
-
-    <div class="flex flex-row mb-3">
-      <h1 class="text-6xl text-custom-dab5e1 font-extrabold ">Ordenes Pendientes:</h1>
-      <button class="btn text-black bg-custom-b3ebe4 px-4 ml-auto" (click)="volver()">Menu</button>
-    </div>
+  <div class="flex flex-row mb-3">
+    <h1 class="text-6xl text-custom-dab5e1 font-extrabold ">Ordenes Pendientes:</h1>
+    <button class="btn text-black bg-custom-b3ebe4 px-4 ml-auto" (click)="volver()">Menu</button>
+  </div>
 
 
-    <div class="card-container text-xl horizontal-scroll">
+  <div class="card-container text-xl horizontal-scroll">
 
-      <app-card
-      *ngFor="let order of pendingOrders"
-      [order]="order"
-      (orderDelivered)="marcarEntregado(order.id)"
+    <app-card *ngFor="let order of pendingOrders" [order]="order" (orderDelivered)="marcarEntregado(order.id)"
       (seeOrders)="loadPendingOrders()">
     </app-card>
 
-    </div>
+  </div>
 
-
-  </section>
 
   <div *ngIf="pendingOrders.length === 0">
     <div class="cat flex justify-center mb-8">
@@ -32,3 +26,4 @@
       </div>
     </div>
   </div>
+</section>

@@ -10,7 +10,7 @@ import { catchError } from 'rxjs';
 })
 export class UsersServiceService {
 
-  private url:string = 'http://localhost:8080';
+  private url:string = 'https://burger-queen-api-mock-production-7cd5.up.railway.app';
   private userUrl:string = this.url + '/users'
 
   constructor(

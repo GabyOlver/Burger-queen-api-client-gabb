@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AuthServiceService {
 
-  private url:string = 'http://localhost:8080';
+  private url:string = 'https://burger-queen-api-mock-production-7cd5.up.railway.app';
 
   constructor(private http: HttpClient, private router: Router) { }
 

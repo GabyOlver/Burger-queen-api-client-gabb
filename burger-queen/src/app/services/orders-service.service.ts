@@ -9,7 +9,7 @@ import { LocalStorageService } from './local-storage.service';
 })
 export class OrdersServiceService {
 
-  private url: string = 'http://localhost:8080';
+  private url: string = 'https://burger-queen-api-mock-production-7cd5.up.railway.app';
   private ordersUrl = this.url + '/orders'
 
   constructor(
