@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./products-admin.component.css']
 })
 export class ProductsAdminComponent implements OnInit {
+  selectedMenu: string = '';
   products: Product[] = [];
   showAddProductModal = false;
   showEditProductModal = false;
@@ -25,6 +26,10 @@ export class ProductsAdminComponent implements OnInit {
   }
 
   loadProducts() {
+
+      this.selectedMenu = ''
+      console.log(this.selectedMenu);
+
     this.productsService.getAllProducts().subscribe(
       (products) => {
         console.log("products",products);
@@ -37,6 +42,10 @@ export class ProductsAdminComponent implements OnInit {
   }
 
   showMenu(type: string) {
+
+      this.selectedMenu = type
+      console.log(this.selectedMenu);
+
     this.productsService.getAllProducts().subscribe((data: Product[]) => {
       this.products = data.filter(product => product.type === type);
     })

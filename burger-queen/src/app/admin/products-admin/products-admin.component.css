@@ -2,6 +2,10 @@
     z-index: 10000; /* Valor de z-index más alto */
 }
 
+.active {
+    background-color: #5c4f5f !important; /* Cambia el color a lo que desees */
+  }
+
 .products {
     color: #000;
 }
