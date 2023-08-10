@@ -35,6 +35,10 @@ export class OrdersComponent {
     ) { }
 
 showMenu(type: string) {
+  setTimeout(() => {
+    this.selectedMenu = type
+    console.log(this.selectedMenu);
+  }, 600)
   this.products.getAllProducts().subscribe((data: MenuItem[]) => {
     this.menuItems = data.filter(item => item.type === type);
   })

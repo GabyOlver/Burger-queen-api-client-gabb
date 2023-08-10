@@ -5,7 +5,7 @@ body {
   }
 
   .active {
-    background-color: #FFCC00; /* Cambia el color a lo que desees */
+    background-color: #FFCC00 !important; /* Cambia el color a lo que desees */
   }
 
   .desayuno-items-container {
