@@ -4,6 +4,10 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
   }
 
+  .active {
+    background-color: #FFCC00; /* Cambia el color a lo que desees */
+  }
+
   .desayuno-items-container {
     max-height: 590px; /* Ajusta el tamaño máximo del contenedor según tus necesidades */
     overflow: auto;
@@ -21,6 +25,7 @@ body {
     align-self: start;
   }
 .menu{
+  background-color: #B3EBE4;
     font-size: 40px;
     font-weight: bold;
     font-family: 'Single Day', cursive;

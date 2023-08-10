@@ -1,102 +1,105 @@
-
 <section class="h-screen flex flex-col">
   <app-header class="sticky top-0 z-10"></app-header>
-    <div class="flex flex-row mx-11">
-      <!-- <img class="h-40 ml-10 mt-3" src="../../../assets/LogoBQ.png" alt="burger queen" /> -->
-      <div class="btns mt-2">
-        <button class="menu bg-custom-b3ebe4 h-20 w-48 rounded-md" (click)="showMenu('Desayuno')">
-          Desayuno
-        </button>
+  <div class="flex flex-row mx-11">
+    <!-- <img class="h-40 ml-10 mt-3" src="../../../assets/LogoBQ.png" alt="burger queen" /> -->
+    <div class="btns mt-2">
+      <button class="menu h-20 w-48 rounded-md" [ngClass]="{ 'active': selectedMenu === 'Desayuno' }" (click)="showMenu('Desayuno')">
+        Desayuno
+      </button>
 
-        <button class="menu bg-custom-b3ebe4 h-20 w-48 rounded-md ml-3" (click)="showMenu('Almuerzo')">
-          Almuerzo
-        </button>
+      <button class="menu h-20 w-48 rounded-md ml-3" [ngClass]="{'active': selectedMenu === 'Almuerzo' }" (click)="showMenu('Almuerzo')">
+        Almuerzo
+      </button>
 
-      </div>
-      <div class="cerrar flex justify-end ml-auto mt-2" (click)="verPedidos()">
-        <button class="menu bg-custom-b3ebe4 h-20 w-48 rounded-md">
-          Pedidos
-        </button>
+    </div>
+    <div class="cerrar flex justify-end ml-auto mt-2" (click)="verPedidos()">
+      <button class="menu bg-custom-b3ebe4 h-20 w-48 rounded-md">
+        Pedidos
+      </button>
 
-      </div>
-      
-      <!-- Boton cerrar sesion -->
     </div>
 
-    
-    <!-- MENU DESAYUNO / ALMUERZO -->
-    
-    <main class="desyuno-container flex h-3/4 w-full pt-3 px-11 mb-11">
-      <div class="desayuno-items-container w-1/2 overflow-auto">
-        <div class="desayuno-items grid grid-cols-3 gap-2 mr-6" >
-          <figure class="desayuno-item w-40 h-44 py-3 px-1 bg-slate-200" *ngFor="let item of menuItems" (click)="addToOrderList(item)">
-            <img class="h-16 m-auto" src="{{ item.image }}" alt="{{ item.name }}" />
-            <h3 class="text-xl font-bold px-2 text-center">{{ item.name }}  ${{ item.price }}</h3>
-          </figure>
+    <!-- Boton cerrar sesion -->
+  </div>
+
+
+  <!-- MENU DESAYUNO / ALMUERZO -->
+
+  <main class="desyuno-container flex h-3/4 w-full pt-3 px-11 mb-11">
+    <div class="desayuno-items-container w-1/2 overflow-auto">
+      <div class="desayuno-items grid grid-cols-3 gap-2 mr-6">
+        <figure class="desayuno-item w-40 h-44 py-3 px-1 bg-slate-200" *ngFor="let item of menuItems"
+          (click)="addProduct(item)">
+          <img class="h-16 m-auto" src="{{ item.image }}" alt="{{ item.name }}" />
+          <h3 class="text-xl font-bold px-2 text-center">{{ item.name }} ${{ item.price }}</h3>
+        </figure>
+      </div>
+    </div>
+
+    <!-- PEDIDO DEL CLIENTE -->
+
+    <section class="order-items flex flex-col bg-slate-100 w-1/2 h-full ml-auto px-2 py-3">
+
+      <div class="mesa-cliente text-black flex flex-row mt-2">
+        <div class="cliente flex flex-col w-full">
+          <label class="text-2xl font-medium mb-1" for="cliente">Cliente:</label>
+          <input class="input-cliente w-full h-9 text-2xl" type="text" placeholder="CLIENTE" id="cliente"
+            [(ngModel)]="clientName" />
+        </div>
+        <div class="mesa ml-4 flex flex-col w-full">
+          <label class="text-2xl font-medium mb-1" for="mesa">Mesa:</label>
+          <input class="input-cliente w-2/4 h-9 text-2xl" type="number" placeholder="#" id="mesa"
+            [(ngModel)]="mesaNumber" />
         </div>
       </div>
 
-        <!-- PEDIDO DEL CLIENTE -->
+      <div class="pedido flex flex-col overflow-auto px-3">
+        <table class="mb-3 bg-slate-100 ">
+          <thead>
+            <tr class="text-xl text-black font-bold mb-3">
+              <th class="sticky top-0 bg-slate-100 z-10 px-2 py-2">QTY</th>
+              <th class="sticky top-0 bg-slate-100 z-10 px-2 py-2">PRODUCTO</th>
+              <th class="sticky top-0 bg-slate-100 z-10 px-2 py-2">PRECIO</th>
+            </tr>
+          </thead>
 
-          <section class="order-items flex flex-col bg-slate-100 w-1/2 h-full ml-auto px-2 py-3">
+          <tbody>
+            <ng-container *ngFor="let orderItem of orderItems">
+              <tr class="py-2">
 
-            <div class="mesa-cliente text-black flex flex-row mt-2">
-              <div class="cliente flex flex-col w-full">
-                <label class="text-2xl font-medium mb-1" for="cliente">Cliente:</label>
-                <input class="input-cliente w-full h-9 text-2xl" type="text" placeholder="CLIENTE" id="cliente" [(ngModel)]="clientName"/>
-              </div>
-              <div class="mesa ml-4 flex flex-col w-full">
-                <label class="text-2xl font-medium mb-1" for="mesa">Mesa:</label>
-                <input class="input-cliente w-2/4 h-9 text-2xl" type="number" placeholder="#" id="mesa" [(ngModel)]="mesaNumber"/>
-              </div>
-            </div>
+                <td class="flex flex-row text-2xl mt-2 font-semibold">
+                  <img class="h-5 mt-2 mr-3" src="../../../assets/menos1.png" alt="delete" (click)="deleteProduct(orderItem)">
+                  {{ orderItem.quantity }}
+                  <img class="h-5 mt-2 mx-3" src="../../../assets/mas.png" alt="add" (click)="addProduct(orderItem)">
+                </td>
 
-            <div class="pedido flex flex-col overflow-auto px-3">
-              <table class="mb-3 bg-slate-100 ">
-                <thead>
-                  <tr class="text-xl text-black font-bold mb-3">
-                    <th class="sticky top-0 bg-slate-100 z-10 px-2 py-2">QTY</th>
-                    <th class="sticky top-0 bg-slate-100 z-10 px-2 py-2"> </th>
-                    <th class="sticky top-0 bg-slate-100 z-10 px-2 py-2">PRODUCTO</th>
-                    <th class="sticky top-0 bg-slate-100 z-10 px-2 py-2">PRECIO</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <ng-container *ngFor="let orderItem of orderItems">
-                    <tr class="py-2">
-                      <td class="text-xl">{{ orderItem.quantity }}</td>
-                      <td class="flex flex-row mt-2 mr-2">
-                      <img class="h-5 mr-3" src="../../../assets/menos1.png" alt="delete" (click)="deleteProduct(orderItem)">
-                      <img class="h-5 mr-2" src="../../../assets/mas.png" alt="add" (click)="addProduct(orderItem)">
-                    </td>
-                      <td class="text-2xl font-semibold mt-4">{{ orderItem.name }}</td>
-                      <td class="text-2xl font-semibold mt-4">
-                        <ng-container *ngIf="orderItem.price !== undefined && orderItem.quantity !== undefined">
-                          ${{ orderItem.price * orderItem.quantity }}
-                        </ng-container>
-                      </td>
-                    </tr>
+                <td class="text-2xl font-semibold mt-4">{{ orderItem.name }}</td>
+                <td class="text-2xl font-semibold mt-4">
+                  <ng-container *ngIf="orderItem.price !== undefined && orderItem.quantity !== undefined">
+                    ${{ orderItem.price * orderItem.quantity }}
                   </ng-container>
-                </tbody>
-              </table>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
 
-              <div class="text-black total mt-3 mb-4 text-3xl font-semibold">
-                Total: ${{ calcularTotal() }}
-              </div>
-            </div>
+        <div class="text-black total mt-3 mb-4 text-3xl font-semibold">
+          Total: ${{ calcularTotal() }}
+        </div>
+      </div>
 
-            <div class="flex flex-row justify-end mt-4">
-              <button class="cancelar-orden btn font-bold bg-custom-dab5e1 w-auto h-auto px-4 mr-10"
-                (click)="cancelarOrden()">
-                Cancelar
-              </button>
-              <button class="btn font-bold bg-custom-b3ebe4 w-auto h-auto px-4" (click)="enviarOrden()">
-                Enviar
-              </button>
-            </div>
+      <div class="flex flex-row justify-end mt-4">
+        <button class="cancelar-orden btn font-bold bg-custom-dab5e1 w-auto h-auto px-4 mr-10"
+          (click)="cancelarOrden()">
+          Cancelar
+        </button>
+        <button class="btn font-bold bg-custom-b3ebe4 w-auto h-auto px-4" (click)="enviarOrden()">
+          Enviar
+        </button>
+      </div>
 
-          </section>
+    </section>
 
-    </main>
-  </section>
+  </main>
+</section>

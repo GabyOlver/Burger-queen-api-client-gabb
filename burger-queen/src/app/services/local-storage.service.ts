@@ -27,4 +27,9 @@ export class LocalStorageService {
     return token ? token : ''
   }
 
+  getName(): string {
+    const userName = localStorage.getItem('user-name')
+    return userName ? userName : ''
+  }
+
 }

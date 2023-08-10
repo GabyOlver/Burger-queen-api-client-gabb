@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('user-id', (res.user.id))
         localStorage.setItem('user-email', (res.user.email))
         localStorage.setItem('user-rol', (res.user.role))
+        localStorage.setItem('user-name', (res.user.name))
         //Dependiendo el rol sera la ruta
         
         // this.router.navigate(['./waiter']);
