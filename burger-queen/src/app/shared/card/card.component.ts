@@ -34,10 +34,15 @@ export class CardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // debugger;
-    this.tiempoTranscurrido = this.calculateTimeDifference();
-    this.order.currentTime = this.formatearTiempo(this.tiempoTranscurrido)
-    if(this.order.status !== 'ready') {
-      this.startTimer()
+    if (this.order) {
+      this.tiempoTranscurrido = this.calculateTimeDifference();
+      this.order.currentTime = this.formatearTiempo(this.tiempoTranscurrido)
+      if(this.order.status !== 'ready') {
+        this.startTimer()
+      }
+      if (!this.order.products) {
+        this.order.products = [];
+      }
     }
   }
   
