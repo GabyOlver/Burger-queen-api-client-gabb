@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientModule } from '@angular/common/http';
 import { CardComponent } from './card.component';
 
 describe('CardComponent', () => {
@@ -8,7 +8,8 @@ describe('CardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CardComponent]
+      declarations: [CardComponent],
+      imports:[HttpClientModule],
     });
     fixture = TestBed.createComponent(CardComponent);
     component = fixture.componentInstance;

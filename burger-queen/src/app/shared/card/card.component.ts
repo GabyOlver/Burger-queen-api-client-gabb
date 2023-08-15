@@ -99,5 +99,4 @@ export class CardComponent implements OnInit, OnDestroy {
   calcularTotal(orderItems: MenuItem[]) {
     return this.totalCalculator.calcularTotal(orderItems);
   }
-
 }

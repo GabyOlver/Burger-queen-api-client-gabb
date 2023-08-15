@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientModule } from '@angular/common/http';
 import { EditWorkersComponent } from './edit-workers.component';
 
 describe('EditWorkersComponent', () => {
@@ -8,7 +8,8 @@ describe('EditWorkersComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EditWorkersComponent]
+      declarations: [EditWorkersComponent],
+      imports:[HttpClientModule],
     });
     fixture = TestBed.createComponent(EditWorkersComponent);
     component = fixture.componentInstance;
