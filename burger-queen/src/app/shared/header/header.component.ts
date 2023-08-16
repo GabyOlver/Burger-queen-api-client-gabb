@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { LogOutServiceService } from 'src/app/services/log-out-service.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import Swal from 'sweetalert2';
 
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private storage: LocalStorageService,
     private authService: AuthServiceService,
+    private logOutService: LogOutServiceService,
     private date: DatePipe) { }
     
     email = this.storage.getEmail();
@@ -54,7 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       cancelButtonText: 'No',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.authService.logOut();
+        this.logOutService.logOut();
       }
     })
   }

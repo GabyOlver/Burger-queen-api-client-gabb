@@ -1,12 +1,12 @@
 import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
-import { AuthServiceService } from '../services/auth-service.service';
 import { LocalStorageService } from '../services/local-storage.service';
+import { LogOutServiceService } from '../services/log-out-service.service';
 import Swal from 'sweetalert2';
 
 
 export const adminGuard: CanActivateFn = () => {
-  const authService = inject(AuthServiceService);
+  const logOutService = inject(LogOutServiceService);
   const storageService = inject(LocalStorageService);
   const userRole = storageService.getRoleUser();
 
@@ -19,7 +19,7 @@ export const adminGuard: CanActivateFn = () => {
       title: 'Error',
       text: 'No tienes permisos para ingresar a esta ruta, vuelve a loggearte por favor'
     })
-    authService.logOut();
+    logOutService.logOut();
     return false;
   }
 };
