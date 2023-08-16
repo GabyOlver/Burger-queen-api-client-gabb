@@ -67,7 +67,7 @@ La información que proporciona el restaurante es la siguiente:
 
 ## 2. Usuarios
 
-Para poder ingresar a la app y comenzar a usarla puedes ingresar al siguiente link: [Burger Queen]()
+Para poder ingresar a la app y comenzar a usarla puedes ingresar al siguiente link: [Burger Queen](https://burger-queen-dev006.netlify.app/login)
 
 | Administrador         | Mesero                   | Chef                     |
 |-----------------------|--------------------------|--------------------------|
