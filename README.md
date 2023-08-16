@@ -62,7 +62,7 @@ La información que proporciona el restaurante es la siguiente:
 
 ## 2. Usuarios
 
-Para poder ingresar a la app y poder usarla puedes ingresar al siguiente link: [Burger Queen]()
+Para poder ingresar a la app y comenzar a usarla puedes ingresar al siguiente link: [Burger Queen]()
 
 | Administrador         | Mesero                   | Chef                     |
 |-----------------------|--------------------------|--------------------------|
@@ -70,15 +70,18 @@ Para poder ingresar a la app y poder usarla puedes ingresar al siguiente link: [
 |Password: 123456       |Password: 123456          |Password: 123456          |
 
 
-Es recomendable usar la app en un tablel de 1180px x 820px
+Es recomendable usar la app en un tablet con las siguientes dimensiones: 1180px x 820px
 
 ## 3. Mesero
 ### Historia de Usuario 1 
 **Yo como meserx quiero poder ingresar al sistema de pedidos.**
 
 *Acceder a una pantalla de login.
+
 *Ingresar email y contraseña.
+
 *Recibir mensajes de error comprensibles, dependiendo de cuál es el error con la información ingresada.
+
 *Ingresar al sistema de pedidos si las crendenciales son correctas.
 ### Historia de Usuario 2
 **Yo como meserx quiero tomar el pedido de unx clientx para no depender de mi mala memoria, para saber cuánto cobrar, y enviarlo a la cocina para evitar errores y que se puedan ir preparando en orden.**
