@@ -1,5 +1,8 @@
 # Burger Queen  
-![Burger Queen](./burger-queen/images/LogoBQ.png)
+
+<p align="center">
+    <img src="./burger-queen/images/LogoBQ.png" alt="Burger Queen">
+</p>
 
 ## Índice
 
