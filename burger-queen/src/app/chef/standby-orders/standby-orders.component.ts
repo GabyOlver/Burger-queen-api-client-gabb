@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OrdersServiceService } from 'src/app/services/orders-service.service';
 import { Order } from 'src/app/interfaces/orderInterface';
+import { SharedModule } from 'src/app/shared/shared.module';
 import Swal from 'sweetalert2';
 
 @Component({

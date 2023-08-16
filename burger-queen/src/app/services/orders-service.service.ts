@@ -16,14 +16,6 @@ export class OrdersServiceService {
     private http: HttpClient,
     private storage: LocalStorageService) { }
 
-  // private getHeaders(): HttpHeaders {
-  //   const token = this.storage.getToken();
-  //   return new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     Authorization: 'Bearer ' + token
-  //   })
-  // }
-
   enviarOrden(order: Order): Observable<any> {
     // const headers = this.getHeaders();
     return this.http.post(this.ordersUrl, order)

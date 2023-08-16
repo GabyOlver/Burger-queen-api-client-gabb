@@ -6,16 +6,14 @@ import { StandbyOrdersComponent } from './standby-orders/standby-orders.componen
 import { SharedModule } from '../shared/shared.module';
 
 
-
 @NgModule({
   declarations: [
     StandbyOrdersComponent,
-
   ],
   imports: [
     CommonModule,
     ChefRoutingModule,
     SharedModule
-  ]
+  ],
 })
 export class ChefModule { }

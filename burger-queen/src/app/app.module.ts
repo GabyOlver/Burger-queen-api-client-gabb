@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
@@ -33,6 +33,7 @@ import { AuthInterceptorInterceptor } from './interceptors/auth-interceptor.inte
       multi: true,
     },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

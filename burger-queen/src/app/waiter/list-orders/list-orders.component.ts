@@ -32,17 +32,6 @@ export class ListOrdersComponent implements OnInit {
       (orders: Order[]) => {
 
         this.pendingOrders = orders.filter(order => order.status === 'ready');
-
-        // if (userRole === 'waiter') {
-        //   const pendingOrders = orders.filter(order => order.status === 'pending');
-        //   const readyOrders = orders.filter(order => order.status === 'ready');
-        //   this.pendingOrders = [...pendingOrders, ...readyOrders]
-        // } else if (userRole === 'admin') {
-        //   const pendingOrders = orders.filter(order => order.status === 'pending');
-        //   const readyOrders = orders.filter(order => order.status === 'ready');
-        //   const deliveredOrders = orders.filter(order => order.status === 'delivered');
-        //   this.pendingOrders = [...pendingOrders, ...readyOrders, ...deliveredOrders]
-        // }
       },
       (error) => {
         console.error('Error al obtener las órdenes pendientes:', error);

@@ -8,6 +8,7 @@ import { Order } from 'src/app/interfaces/orderInterface';
 import { Router } from '@angular/router';
 import { OrdersFnService } from 'src/app/services/orders-fn.service';
 import Swal from 'sweetalert2';
+import { LogOutServiceService } from 'src/app/services/log-out-service.service';
 
 @Component({
   selector: 'app-orders',
@@ -31,10 +32,15 @@ export class OrdersComponent {
     private date: DatePipe,
     private ordersService: OrdersServiceService,
     private totalCalculator: OrdersFnService,
+    private logOutService: LogOutServiceService,
     private router: Router,
     ) { }
 
 showMenu(type: string) {
+  setTimeout(() => {
+    this.selectedMenu = type
+    console.log(this.selectedMenu);
+  }, 600)
   this.products.getAllProducts().subscribe((data: MenuItem[]) => {
     this.menuItems = data.filter(item => item.type === type);
   })
@@ -149,6 +155,6 @@ verPedidos() {
 }
 
 logout() {
-  this.authService.logOut();
+  this.logOutService.logOut();
 }
 }

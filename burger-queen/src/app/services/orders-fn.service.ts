@@ -6,7 +6,7 @@ import { MenuItem } from '../interfaces/menuInterface';
   providedIn: 'root'
 })
 export class OrdersFnService {
-private pendingORders: Order[] = [];
+private pendingOrders: Order[] = [];
 
   constructor() { }
 

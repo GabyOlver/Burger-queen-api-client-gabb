@@ -15,14 +15,6 @@ export class ProductsServiceService {
   constructor(private http: HttpClient,
     private storage: LocalStorageService) { }
 
-  // private getHeaders() {
-  //   const token = this.storage.getToken();
-  //   return new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     Authorization: 'Bearer ' + token
-  //   })
-  // }
-
   getAllProducts():Observable<any> {
     // const headers = this.getHeaders();
     return this.http.get<MenuItem[]>(this.productsUrl)

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../services/auth-service.service';
 import { UserCredentials } from '../interfaces/userInterfaces';
+import { LocalStorageService } from '../services/local-storage.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
@@ -14,9 +15,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthServiceService,
-    private router: Router) {
+    private router: Router,
+    private storageService: LocalStorageService) {
 
   }
+
+  userRole = this.storageService.getRoleUser();
 
   get email() {
     return this.formWaiter.get('email') as FormControl;
@@ -37,7 +41,13 @@ export class LoginComponent implements OnInit {
 
     checkLocalStorage(){
       if(localStorage.getItem('token')){
-        this.router.navigate(['waiter']);
+        if(this.userRole === 'waiter') {
+          this.router.navigate(['waiter'])
+        } else if (this.userRole === 'chef') {
+          this.router.navigate(['chef']);
+        } else if (this.userRole === 'admin') {
+          this.router.navigate(['admin']);
+        }
       }
     }
 
@@ -59,15 +69,13 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('user-rol', (res.user.role))
         localStorage.setItem('user-name', (res.user.name))
         //Dependiendo el rol sera la ruta
-        
-        // this.router.navigate(['./waiter']);
 
         if (role === 'waiter') {
-        this.router.navigate(['./waiter']);
+        this.router.navigate(['/waiter']);
       } else if (role === 'admin') {
-        this.router.navigate(['./admin']);
+        this.router.navigate(['/admin']);
       } else if (role === 'chef') {
-        this.router.navigate(['./chef'])
+        this.router.navigate(['/chef'])
       }
 
         Swal.fire({
@@ -88,7 +96,6 @@ export class LoginComponent implements OnInit {
       })
       
       //como funcionan observables, suscribir
-      //agregar url consultar cuomo acceder
       } else {
         Swal.fire({
           icon: 'warning',

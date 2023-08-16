@@ -24,16 +24,17 @@
                     Ingresar
                 </button>
 
-                <div class="w-3/4">
+                <div class="w-full">
                     <div class="alert alert-warning ml-10 text-3xl"
                         [hidden]="email.valid || email.pristine">
-                        <span *ngIf="email?.errors?.['required']">Ingresa tu correo</span>
-                        <span *ngIf="email?.errors?.['email']">Ingresa un correo válido</span>
+                        <span>Debes completar todos los campos</span>
+                        <!-- <span *ngIf="email?.errors?.['required']">Ingresa tu correo</span>
+                        <span *ngIf="email?.errors?.['email']">Ingresa un correo válido</span> -->
                     </div>
 
                     <div class="alert alert-warning ml-10 text-3xl"
                         [hidden]="password.valid || password.pristine">
-                        <span>Ingresa tu contraseña</span>
+                        <span>Debes completar todos los campos</span>
                     </div>
                 </div>
             </form>
