@@ -1,7 +1,7 @@
 # Burger Queen  
 
 <p align="center">
-    <img src="./burger-queen/images/LogoBQ.png" alt="Burger Queen">
+    <img src="./images/LogoBQ.png" alt="Burger Queen">
 </p>
 
 ## Índice
@@ -24,7 +24,7 @@ Es un sistema de pedidos para un restaurante de comida rapida. Este sistema perm
 La interfaz esta implementada como una Single Page App usando Angular, además cuenta con una puntuación de 81% en Best Practices de Lighthouse.
 
 <p align="center">
-    <img src="./burger-queen/images/Accesibilidad.png" alt="Accesibilidad">
+    <img src="./images/Accesibilidad.png" alt="Accesibilidad">
 </p>
 
 Para que el usuario acceda a la aplicación debe contar con credenciales correctas de acuerdo al rol que se asigne por el administrador. 
@@ -129,8 +129,8 @@ Es recomendable usar la app en un tablet con las siguientes dimensiones: 1180px 
 
 ## 6. Prototipo de Baja Fidelidad
 
-![Prototipo](./burger-queen/images/PBJ.png)
+![Prototipo](./images/PBJ.png)
 ## 7. Prototipo de Alta Fidelidad 
 
-![Prototipo](./burger-queen/images/PAF.png)
+![Prototipo](./images/PAF.png)
 
